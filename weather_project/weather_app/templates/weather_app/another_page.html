@@ -1,0 +1,47 @@
+{% extends 'weather_app/base.html' %}
+
+{% block title %}About Weather Forecast Application{% endblock %}
+
+{% block content %}
+<style>
+  .center-heading {
+    text-align: center;
+    color: black;
+    margin-top: 20px;
+  }
+
+  .about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color:  rgba(135, 206, 235, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    line-height: 1.6;
+  }
+
+  .about-container ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .about-container ul li {
+    margin-bottom: 5px;
+  }
+</style>
+
+<h1 class="center-heading">About Weather Forecast Application</h1>
+<div class="about-container">
+    <p>Welcome to our Weather Forecast Application. This application provides accurate and up-to-date weather forecasts for two cities of your choice.</p>
+    <p>Features of this application include:</p>
+    <ul>
+        <li>Current weather conditions</li>
+        <li>5-day weather forecast</li>
+        <li>Temperature, humidity, and wind speed details</li>
+        <li>Weather descriptions and icons</li>
+    </ul>
+    <p>Our application uses data from the OpenWeatherMap API to ensure you get the most reliable weather information.</p>
+    <p>Whether you're planning your week or just curious about the weather, our application has got you covered. Enter the names of two cities and get detailed weather forecasts in an instant!</p>
+</div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'weather_app/base.html' %}
+
+{% block title %}Weather App - Home{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url('https://t4.ftcdn.net/jpg/07/55/97/01/360_F_755970185_91qfWqP2mMyjfIvWC0lnJQNtyWIXdB7H.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  .center-heading {
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+  }
+
+  .form-card {
+    background-color:rgba(135, 206, 235, 0.8); /* Transparent white background */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Adjust width as needed */
+    max-width: 1500px; /* Maximum width to maintain responsiveness */
+    text-align: center;
+  }
+
+  .form-card .weather-form {
+    margin-bottom: 0; /* Remove default form margin */
+  }
+
+  .comparison-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .city-card {
+    background-color: rgba(135, 206, 235, 0.8); /* Light blue background */
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Adjust width as needed */
+    max-width: 1500px; /* Maximum width to maintain responsiveness */
+    text-align: center;
+  }
+
+  .forecast-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px 0;
+  }
+
+  .forecast {
+    background-color: rgba(135, 206, 235, 0.8);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 0 10px;
+    width: 150px;
+    text-align: center;
+  }
+
+  .forecast img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .input-field {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(50% - 20px);
+  }
+  .center-heading {
+    text-align: center;
+    color:black;
+    margin-top: 20px;
+  }
+
+  .submit-button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: rgba(55, 117, 183, 0.8);
+    border: none;
+    border-radius: 5px;
+    color: black
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Add transition for box-shadow */
+    box-shadow: 0 0 10px rgba(55, 117, 183, 0.8); /* Initial box shadow (no glow) */
+  }
+
+  .submit-button:hover {
+    background-color: rgba(55, 117, 183, 1); /* Fully opaque background color */
+    box-shadow: 0 0 15px rgb(0, 0, 0); /* Increase box shadow size for glow effect */
+    transform: scale(1.1);
+  }
+</style>
+
+<h1 class="center-heading">Weather Forecast Application</h1>
+
+<div class="form-card">
+  <form method="post" class="weather-form">
+    {% csrf_token %}
+    <input type="text" name="city1" placeholder="Enter city 1" class="input-field">
+    <input type="text" name="city2" placeholder="Enter city 2" class="input-field">
+    <br>
+    <center>
+      <button type="submit" class="submit-button">Get Forecast</button>
+    </center>
+  </form>
+</div>
+
+<div class="comparison-container">
+  {% if weather_data1 %}
+    <div class="city-card">
+      {% include 'weather_app/city_weather.html' with weather_data=weather_data1 daily_forecasts=daily_forecasts1 %}
+    </div>
+  {% endif %}
+  {% if weather_data2 %}
+    <div class="city-card">
+      {% include 'weather_app/city_weather.html' with weather_data=weather_data2 daily_forecasts=daily_forecasts2 %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

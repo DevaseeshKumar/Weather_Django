@@ -1,0 +1,85 @@
+{% if weather_data %}
+<center>
+    <h1>{{ weather_data.city }}</h1>
+    <h2>{{ weather_data.temperature }}°C</h2>
+    <p>{{ weather_data.description }}</p>
+    <img src="http://openweathermap.org/img/w/{{ weather_data.icon }}.png" alt="{{ weather_data.description }}">
+</center>
+{% endif %}
+
+{% if daily_forecasts %}
+<center>
+    <h2>5-Day Forecast</h2>
+</center>
+<div class="forecast-container" id="forecast-{{ weather_data.city|slugify }}">
+    {% for forecast in daily_forecasts %}
+    <div class="forecast">
+        <h3>{{ forecast.date|date:"d-m-Y" }}</h3>
+        <p>{{ forecast.min_temp }}°C - {{ forecast.max_temp }}°C</p>
+        <p>{{ forecast.description }}</p>
+        <img src="http://openweathermap.org/img/w/{{ forecast.icon }}.png" alt="{{ forecast.description }}">
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<style>
+    .city-container {
+        margin: 10px;
+        padding: 20px;
+        border: 1px solid #ffffff;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 90%; /* Adjust width as needed */
+        max-width: 1000px; /* Maximum width to maintain responsiveness */
+        text-align: center;
+    }
+
+    .comparison-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .forecast-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px 0;
+    }
+
+    .forecast-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px 0;
+    }
+
+    .forecast {
+        background-color: rgba(55, 117, 183, 0.8);
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px; /* Increased padding for larger size */
+        margin: 0 10px;
+        width: 200px; /* Fixed width */
+        text-align: center;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; /* Transition for smooth effect */
+    }
+
+    .forecast:hover {
+        background-color: rgba(55, 117, 183, 1); /* Brighter background color on hover */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); /* Box shadow for glow effect */
+        transform: scale(1.1); /* Increase size on hover */
+    }
+
+    .forecast img {
+        width: 50px;
+        height: 50px;
+    }
+</style>
